@@ -1,0 +1,22 @@
+{
+    "name": "webshop",
+    "version": "0.0.0",
+    "description": "The restaurant website.",
+    "author": "Horia Coman <horia141@gmail.com>",
+    "scripts": {
+    },
+    "respository": {
+        "type": "git",
+        "url": "git+https://github.com/ocelot-saas/webshop.git"
+    },
+    "license": "UNLICENSED",
+    "private": true,
+    "bugs": {
+        "url": "https://github.com/ocelot-saas/webshop/issues"
+    },
+    "homepage": "https://github.com/ocelot-saas/webshop#readme",
+    "dependencies": {
+    },
+    "devDependencies": {
+    }
+}
