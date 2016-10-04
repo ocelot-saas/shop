@@ -23,7 +23,22 @@ gulp.task('js-css', function() {
 		loaders: [{
 		    test: /\.css$/,
 		    loader: ExtractTextPlugin.extract('style-loader','css-loader')
-		}]
+		}, {
+                    test: /\.svg$/,
+                    loader: 'url?limit=6500&mimetype=image/svg+xml&name=fonts/[name].[ext]'
+                }, {
+                    test: /\.woff$/,
+                    loader: 'url?limit=6500&mimetype=application/font-woff&name=fonts/[name].[ext]'
+                }, {
+                    test: /\.woff2$/,
+                    loader: 'url?limit=6500&mimetype=application/font-woff2&name=fonts/[name].[ext]'
+                }, {
+                    test: /\.[ot]tf$/,
+                    loader: 'url?limit=6500&mimetype=application/octet-stream&name=fonts/[name].[ext]'
+                }, {
+                    test: /\.eot$/,
+                    loader: 'url?limit=6500&mimetype=application/vnd.ms-fontobject&name=fonts/[name].[ext]'
+                }]
 	    },
 	    plugins: [
 		new ExtractTextPlugin('app.bundle.css')
