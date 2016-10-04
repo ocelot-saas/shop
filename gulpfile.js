@@ -21,8 +21,8 @@ gulp.task('js-css', function() {
 	    },
 	    module: {
 		loaders: [{
-		    test: /\.css$/,
-		    loader: ExtractTextPlugin.extract('style-loader','css-loader')
+		    test: /\.(less|css)$/,
+		    loader: ExtractTextPlugin.extract('style-loader','css-loader!less-loader')
 		}, {
                     test: /\.svg$/,
                     loader: 'url?limit=6500&mimetype=image/svg+xml&name=fonts/[name].[ext]'
@@ -44,7 +44,7 @@ gulp.task('js-css', function() {
 		new ExtractTextPlugin('app.bundle.css')
 	    ],
 	    resolve: {
-		extensions: ['', '.js', '.jsx', '.css'],
+		extensions: ['', '.js', '.jsx', '.css', '.less'],
 		root: [
 		    path.resolve(__dirname, 'src')
 		]
