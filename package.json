@@ -4,6 +4,7 @@
     "description": "The restaurant website.",
     "author": "Horia Coman <horia141@gmail.com>",
     "scripts": {
+	"build": "gulp build"
     },
     "respository": {
         "type": "git",
