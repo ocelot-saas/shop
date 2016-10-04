@@ -17,12 +17,14 @@
     },
     "homepage": "https://github.com/ocelot-saas/webshop#readme",
     "dependencies": {
+	"bootstrap": "^3.3.7"
     },
     "devDependencies": {
+	"css-loader": "^0.25.0",
+	"extract-text-webpack-plugin": "^1.0.1",
         "gulp": "^3.8.10",
-        "gulp-concat": "^2.4.1",
-        "gulp-cssnano": "^2.1.1",
         "gulp-webpack": "^1.5.0",
+	"style-loader": "^0.13.1",
         "webpack": "^1.13.2"
     }
 }
