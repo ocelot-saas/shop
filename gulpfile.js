@@ -10,6 +10,12 @@ gulp.task('index', function() {
 });
 
 
+gulp.task('images', function() {
+    return gulp.src('./src/img/**/*.png')
+        .pipe(gulp.dest('./dist/img'));
+})
+
+
 gulp.task('js-css', function() {
     return gulp.src('./src/js/app.js')
         .pipe(webpack({
@@ -54,4 +60,4 @@ gulp.task('js-css', function() {
 });
 
 
-gulp.task('build', ['index', 'js-css'], function() {});
+gulp.task('build', ['index', 'images', 'js-css'], function() {});
