@@ -11,8 +11,14 @@ gulp.task('index', function() {
 
 
 gulp.task('images', function() {
-    return gulp.src('./src/img/**/*.png')
+    return gulp.src('./src/img/**/*.{png,gif,jpg,jpeg}')
         .pipe(gulp.dest('./dist/img'));
+})
+
+
+gulp.task('favicon', function() {
+    return gulp.src('./src/favicon.ico')
+        .pipe(gulp.dest('./dist/'));
 })
 
 
@@ -22,7 +28,6 @@ gulp.task('js-css', function() {
 	    entry: ['./src/js/app.js'],
 	    output: {
 		path: path.resolve(__dirname, 'build'),
-		publicPath: '/dist/',
 		filename: 'app.bundle.js'
 	    },
 	    module: {
@@ -30,19 +35,22 @@ gulp.task('js-css', function() {
 		    test: /\.(less|css)$/,
 		    loader: ExtractTextPlugin.extract('style-loader','css-loader!less-loader')
 		}, {
-                    test: /\.svg$/,
+		    test: /\.(png|gif|jpg|jpeg)$/,
+		    loader: 'file?name=img/[name].[hash].[ext]',
+		}, {
+                    test: /\.svg(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                     loader: 'url?limit=6500&mimetype=image/svg+xml&name=fonts/[name].[ext]'
                 }, {
-                    test: /\.woff$/,
+                    test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                     loader: 'url?limit=6500&mimetype=application/font-woff&name=fonts/[name].[ext]'
                 }, {
-                    test: /\.woff2$/,
+                    test: /\.woff2(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                     loader: 'url?limit=6500&mimetype=application/font-woff2&name=fonts/[name].[ext]'
                 }, {
-                    test: /\.[ot]tf$/,
+                    test: /\.[ot]tf(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                     loader: 'url?limit=6500&mimetype=application/octet-stream&name=fonts/[name].[ext]'
                 }, {
-                    test: /\.eot$/,
+                    test: /\.eot(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                     loader: 'url?limit=6500&mimetype=application/vnd.ms-fontobject&name=fonts/[name].[ext]'
                 }]
 	    },
@@ -60,4 +68,4 @@ gulp.task('js-css', function() {
 });
 
 
-gulp.task('build', ['index', 'images', 'js-css'], function() {});
+gulp.task('build', ['index', 'images', 'favicon', 'js-css'], function() {});
