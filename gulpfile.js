@@ -2,7 +2,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const gulp = require('gulp');
 const path = require('path');
 const webpack = require('gulp-webpack');
-const webpackValidator = require('webpack-validator');
 
 
 gulp.task('index', function() {
@@ -25,7 +24,7 @@ gulp.task('favicon', function() {
 
 gulp.task('js-css', function() {
     return gulp.src('./src/js/app.js')
-        .pipe(webpack(webpackValidator({
+        .pipe(webpack({
 	    entry: ['./src/js/app.js'],
 	    output: {
 		path: path.resolve(__dirname, 'build'),
@@ -64,7 +63,7 @@ gulp.task('js-css', function() {
 		    path.resolve(__dirname, 'src')
 		]
 	    }
-	})))
+	}))
         .pipe(gulp.dest('./dist'));
 });
 
