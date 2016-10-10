@@ -23,9 +23,9 @@ gulp.task('favicon', function() {
 
 
 gulp.task('js-css', function() {
-    return gulp.src('./src/js/app.js')
+    return gulp.src('./src/app.js')
         .pipe(webpack({
-	    entry: ['./src/js/app.js'],
+	    entry: ['./src/app.js'],
 	    output: {
 		path: path.resolve(__dirname, 'build'),
 		filename: 'app.bundle.js'
