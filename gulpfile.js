@@ -2,9 +2,19 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const gulp = require('gulp');
 const gutil = require('gulp-util');
 const path = require('path');
+const PurifyCSSPlugin = require('purifycss-webpack-plugin');
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
 const WebpackDevServer = require('webpack-dev-server');
+
+
+const webpackNonLocalPlugins = [
+    new webpack.optimize.UglifyJsPlugin({
+        compress: {
+            warnings: false
+        }
+    }),    
+];
 
 
 const webpackConfig = {
@@ -15,31 +25,43 @@ const webpackConfig = {
     },
     module: {
 	loaders: [{
+            test: /\.(js|jsx)$/,
+            include: [path.resolve(__dirname, 'src')],
+            loader: 'babel',
+            query: {
+                cacheDirectory: path.resolve(__dirname, 'dist-cache'),
+                presets: ['es2015', 'react'],
+                plugins: ['transform-runtime']
+            }
+        }, {
 	    test: /\.(less|css)$/,
-	    loader: ExtractTextPlugin.extract('style-loader','css-loader!less-loader')
+            include: [path.resolve(__dirname, 'src')],
+	    loader: ExtractTextPlugin.extract('style', 'css!less')
 	}, {
-	    test: /\.(png|gif|jpg|jpeg)$/,
-	    loader: 'file?name=img/[name].[hash].[ext]',
+	    test: /\.(svg|png|gif|jpg|jpeg)$/,
+            include: [path.resolve(__dirname, 'src', 'img')],
+	    loader: 'file?name=img/[name].[hash].[ext]'
 	}, {
-            test: /\.svg(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-            loader: 'url?limit=6500&mimetype=image/svg+xml&name=fonts/[name].[ext]'
-        }, {
-            test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-            loader: 'url?limit=6500&mimetype=application/font-woff&name=fonts/[name].[ext]'
-        }, {
-            test: /\.woff2(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-            loader: 'url?limit=6500&mimetype=application/font-woff2&name=fonts/[name].[ext]'
-        }, {
-            test: /\.[ot]tf(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-            loader: 'url?limit=6500&mimetype=application/octet-stream&name=fonts/[name].[ext]'
-        }, {
-            test: /\.eot(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-            loader: 'url?limit=6500&mimetype=application/vnd.ms-fontobject&name=fonts/[name].[ext]'
+            test: /\.(svg|woff|woff2|otf|ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+            include: [
+                path.resolve(__dirname, 'src', 'fonts'),
+                path.resolve(__dirname, 'node_modules', 'bootstrap', 'fonts'),
+                path.resolve(__dirname, 'node_modules', 'font-awesome', 'fonts'),
+            ],
+            loader: 'file?name=fonts/[name].[ext]'
         }]
     },
     plugins: [
-	new ExtractTextPlugin('app.bundle.css')
-    ],
+        new webpack.DefinePlugin({
+            'ENV': JSON.stringify(process.env.ENV),
+            'process.env.NODE_ENV': process.env.ENV === 'LOCAL' ? '"development"' : '"production"'
+        }),
+	new ExtractTextPlugin('app.bundle.css'),
+        new PurifyCSSPlugin({
+            basePath: __dirname,
+            paths: ['src/index.html']
+        })
+    ].concat(process.env.ENV !== 'LOCAL' ? webpackNonLocalPlugins : []),
     resolve: {
 	extensions: ['', '.js', '.jsx', '.css', '.less'],
 	root: [
@@ -73,10 +95,7 @@ gulp.task('js-css', function() {
 });
 
 
-gulp.task('build', ['index', 'images', 'favicon', 'js-css'], function() {});
-
-
-gulp.task('dev-server', function(callback) {
+gulp.task('webpack-dev-server', function(callback) {
     new WebpackDevServer(webpack(webpackConfig), {
         publicPath: '/dist',
         stats: {
@@ -90,3 +109,9 @@ gulp.task('dev-server', function(callback) {
         gutil.log("[dev-server]", "http://localhost:8080/webpack-dev-server/index.html");
     });
 });
+
+
+gulp.task('build', ['index', 'images', 'favicon', 'js-css'], function() {});
+
+
+gulp.task('dev-server', ['index', 'images', 'favicon', 'webpack-dev-server'], function() {});
