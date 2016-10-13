@@ -1,6 +1,9 @@
-import 'app.less';
+import 'bootstrap/less/bootstrap.less';
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+import MenuSection from './MenuSection';
+
 
 const restaurantData = {
     'name': 'Horia\'s place',
@@ -9,23 +12,28 @@ const restaurantData = {
     'address': '123 Road 1, Bucharest',
     'openingHours': {},
     'imageSet': {},
-    'menu': [{
-        'name': 'Soups',
-        'description': 'The soups',
-        'items': [{
-            'name': 'Tomato soup',
-            'description': 'The tomato soup',
-            'keywords': ['vegetarian', 'spicy'],
-            'ingredients': ['tomato', 'cream', 'salt', 'onions'],
-            'imageSet': []
-        }, {
-            'name': 'Mushroom soup',
-            'description': 'The mushroom soup',
-            'keywords': ['vegetarian', 'spicy'],
-            'ingredients': ['mushroom', 'cream', 'salt', 'onions'],
-            'imageSet': []
-        },]
-    }],
+    'menu': {
+        'sections': [{
+            'id': 1,
+            'name': 'Soups',
+            'description': 'The soups',
+            'items': [{
+                'id': 1,
+                'name': 'Tomato soup',
+                'description': 'The tomato soup',
+                'keywords': ['vegetarian', 'spicy'],
+                'ingredients': ['tomato', 'cream', 'salt', 'onions'],
+                'imageSet': []
+            }, {
+                'id': 2,
+                'name': 'Mushroom soup',
+                'description': 'The mushroom soup',
+                'keywords': ['vegetarian', 'spicy'],
+                'ingredients': ['mushroom', 'cream', 'salt', 'onions'],
+                'imageSet': []
+            }]
+        }],
+    },
     'platforms': {
         'website': {
             'subdomain': 'horias-place'
@@ -42,10 +50,14 @@ const restaurantData = {
 
 class MainView extends React.Component {
     render() {
+        const menuSections = this.props.restaurant.menu.sections.map(
+            section => <MenuSection key={section.id} section={section} />);
+
         return (
-            <div>
+            <div className="container">
                 <h1>{this.props.restaurant.name}</h1>
                 <p>{this.props.restaurant.description}</p>
+                {menuSections}
             </div>
         );
     }
