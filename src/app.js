@@ -42,7 +42,12 @@ const restaurantData = {
 
 class MainView extends React.Component {
     render() {
-        return <h1>{this.props.restaurant.name}</h1>;
+        return (
+            <div>
+                <h1>{this.props.restaurant.name}</h1>
+                <p>{this.props.restaurant.description}</p>
+            </div>
+        );
     }
 }
 

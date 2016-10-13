@@ -2,7 +2,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const gulp = require('gulp');
 const gutil = require('gulp-util');
 const path = require('path');
-const PurifyCSSPlugin = require('purifycss-webpack-plugin');
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
 const WebpackDevServer = require('webpack-dev-server');
@@ -56,11 +55,7 @@ const webpackConfig = {
             'ENV': JSON.stringify(process.env.ENV),
             'process.env.NODE_ENV': process.env.ENV === 'LOCAL' ? '"development"' : '"production"'
         }),
-	new ExtractTextPlugin('app.bundle.css'),
-        new PurifyCSSPlugin({
-            basePath: __dirname,
-            paths: ['src/index.html']
-        })
+	new ExtractTextPlugin('[name].css'),
     ].concat(process.env.ENV !== 'LOCAL' ? webpackNonLocalPlugins : []),
     resolve: {
 	extensions: ['', '.js', '.jsx', '.css', '.less'],
