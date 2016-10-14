@@ -11,6 +11,7 @@ export default class MenuItem extends React.Component {
                     <div className="col-xs-8">
 		        <p>{this.props.item.name}</p>
                         <p>{this.props.item.description}</p>
+			<span>20 USD</span> <button type="button" className="btn btn-default">Add</button>
 		    </div>
 		</div>
             </div>

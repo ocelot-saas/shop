@@ -58,7 +58,7 @@ const webpackConfig = {
             'ENV': JSON.stringify(process.env.ENV),
             'process.env.NODE_ENV': process.env.ENV === 'LOCAL' ? '"development"' : '"production"'
         }),
-	new ExtractTextPlugin('[name].css'),
+	new ExtractTextPlugin('app.bundle.css'),
     ].concat(process.env.ENV !== 'LOCAL' ? webpackNonLocalPlugins : []),
     resolve: {
 	extensions: ['', '.js', '.jsx', '.css', '.less'],
