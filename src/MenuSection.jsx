@@ -10,11 +10,14 @@ export default class MenuSection extends React.Component {
             item => <MenuItem key={item.id} item={item} />);
         
         return (
-            <div>
-                {this.props.section.name} <br/>
-                {this.props.section.description} <br/>
-                {menuItems}
-            </div>
+	    <div className="container">
+                <h2>{this.props.section.name}</h2>
+                <p>{this.props.section.description}</p>
+
+		<div className="row">
+                    {menuItems}
+		</div>
+	    </div>
         );
     }
 }

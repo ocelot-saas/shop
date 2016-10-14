@@ -5,9 +5,14 @@ import React from 'react';
 export default class MenuItem extends React.Component {
     render () {
         return (
-            <div>
-                {this.props.item.name} <br/>
-                {this.props.item.description} <br/>
+            <div className="col-sm-12 col-md-4">
+                <div className="row">
+                    <img className="col-xs-4" src={this.props.item.imageSet[0].uri} />
+                    <div className="col-xs-8">
+		        <p>{this.props.item.name}</p>
+                        <p>{this.props.item.description}</p>
+		    </div>
+		</div>
             </div>
         );
     }
