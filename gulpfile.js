@@ -65,7 +65,8 @@ const webpackConfig = {
 	root: [
 	    path.resolve(__dirname, 'src')
 	]
-    }
+    },
+    devtool: 'source-map'
 };
 
 gulp.task('index', function() {

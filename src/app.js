@@ -1,9 +1,11 @@
 import 'bootstrap/less/bootstrap.less';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Router, Route, Link, IndexRedirect, Redirect, browserHistory } from 'react-router';
+import { Provider } from 'react-redux';
 
 import MenuSection from './MenuSection';
-
+import store from './store';
 
 const restaurantData = {
     'name': 'Horia\'s place',
@@ -104,13 +106,13 @@ const restaurantData = {
 
 class MainView extends React.Component {
     render() {
-        const menuSections = this.props.restaurant.menu.sections.map(
+        const menuSections = this.props.route.restaurant.menu.sections.map(
             section => <MenuSection key={section.id} section={section} />);
 
         return (
             <div className="container">
-                <h1>{this.props.restaurant.name}</h1>
-                <p>{this.props.restaurant.description}</p>
+                <h1>{this.props.route.restaurant.name}</h1>
+                <p>{this.props.route.restaurant.description}</p>
 
                 {menuSections}
 
@@ -122,6 +124,10 @@ class MainView extends React.Component {
 }
 
 ReactDOM.render(
-    <MainView restaurant={restaurantData} />,
+    <Provider store={store}>
+        <Router history={browserHistory}>
+            <Route path="/dist/" component={MainView} restaurant={restaurantData} />
+        </Router>
+    </Provider>,
     document.getElementById('app')
 );
