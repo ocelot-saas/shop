@@ -1,22 +1,47 @@
 import { createStore, combineReducers } from 'redux';
 import { createAction } from 'redux-actions';
 
+import { RESTAURANT_DATA } from './config';
 
-export const ordersAdd = createAction('ORDERS_ADD', (order) => { return { order }; });
-export const ordersRemove = createAction('ORDERS_REMOVE', (order) => { return { order }; });
+
+export const ordersAdd = createAction('ORDERS_ADD', (sectionId, itemId) => { return { sectionId, itemId }; });
+export const ordersSubtract = createAction('ORDERS_SUBTRACT', (sectionId, itemId) => { return { sectionId, itemId }; });
+export const ordersRemove = createAction('ORDERS_REMOVE', (sectionId, itemId) => { return { sectionId, itemId }; });
 
 
 const ordersInitialState = {
-    orders: []
+    totalAmount: 0,
+    orders: {}
 };
 
 
 function orders(state=ordersInitialState, action) {
     switch (action.type) {
     case 'ORDERS_ADD':
-	return {
-	    orders: state.orders.concat(action.payload.order)
+	const sectionId = action.payload.sectionId;
+	const itemId = action.payload.itemId;
+	// What do if this doesn't exist!
+	const item = RESTAURANT_DATA.menu.sections[sectionId].items[itemId];
+
+	const newState = Object.assign({}, state);
+
+	newState.totalAmount += item.price;
+
+	if (orderId in newState.orders) {
+	    const order = newState.orders[orderId];
+	    order.count++;
+	    order.amount += item.price;
+	} else {
+	    const order = {
+		count: 1,
+		amount: item.price
+	    };
+	    newState.orders[orderId] = order;
 	}
+
+	return newState;
+    case 'ORDERS_SUBTRACT':
+	return state;
     case 'ORDERS_REMOVE':
 	return state;
     default:

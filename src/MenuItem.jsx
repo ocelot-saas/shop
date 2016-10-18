@@ -7,7 +7,7 @@ import { ordersAdd } from './store';
 
 class MenuItem extends React.Component {
     handleAddToOrders() {
-	this.props.ordersAdd(this.props.item.id);
+	this.props.ordersAdd(this.props.section.id, this.props.item.id);
     }
     
     render () {
@@ -34,7 +34,7 @@ function mapStateToProps(store) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        ordersAdd: (order) => dispatch(ordersAdd(order))
+        ordersAdd: (sectionId, itemId) => dispatch(ordersAdd(sectionId, itemId))
     }
 }
 

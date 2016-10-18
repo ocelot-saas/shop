@@ -30,8 +30,9 @@ function mapStateToProps(store) {
 
 function mapDispatchToProps(dispatch) {
     return {
-	ordersAdd: (order) => dispatch(ordersAdd(order)),
-	ordersRemove: (order) => dispatch(ordersRemove(order))
+	ordersAdd: (sectionId, itemId) => dispatch(ordersAdd(sectionId, itemId)),
+	ordersSubtract: (sectionId, item) => dispatch(ordersSubtract(sectionId, itemId)),
+	ordersRemove: (sectionId, itemId) => dispatch(ordersRemove(sectionId, itemId))
     }
 }
 

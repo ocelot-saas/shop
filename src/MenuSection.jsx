@@ -7,7 +7,7 @@ import MenuItem from './MenuItem';
 export default class MenuSection extends React.Component {
     render () {
         const menuItems = this.props.section.items.map(
-            item => <MenuItem key={item.id} item={item} />);
+            item => <MenuItem key={item.id} section={this.props.section} item={item} />);
         
         return (
 	    <div className="container">
