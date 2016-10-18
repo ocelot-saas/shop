@@ -12,8 +12,10 @@ import { store } from './store';
 
 class MainView extends React.Component {
     render() {
-        const menuSections = this.props.route.restaurant.menu.sections.map(
-            section => <MenuSection key={section.id} section={section} />);
+        const menuSections = Object.keys(this.props.route.restaurant.menu.sections).map(sId =>
+            <MenuSection
+                key={sId}
+                section={this.props.route.restaurant.menu.sections[sId]} />);
 
         return (
             <div className="container">
@@ -22,7 +24,7 @@ class MainView extends React.Component {
 
                 {menuSections}
 
-	        <ShoppingCart />
+	        <ShoppingCart restaurant={RESTAURANT_DATA} />
 
 	        <hr />
 	        <footer>© 2016 Company, Inc.</footer>
