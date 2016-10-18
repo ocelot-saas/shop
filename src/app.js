@@ -5,7 +5,8 @@ import { Router, Route, Link, IndexRedirect, Redirect, browserHistory } from 're
 import { Provider } from 'react-redux';
 
 import MenuSection from './MenuSection';
-import store from './store';
+import ShoppingCart from './ShoppingCart';
+import { store } from './store';
 
 const restaurantData = {
     'name': 'Horia\'s place',
@@ -115,6 +116,8 @@ class MainView extends React.Component {
                 <p>{this.props.route.restaurant.description}</p>
 
                 {menuSections}
+
+	        <ShoppingCart />
 
 	        <hr />
 	        <footer>© 2016 Company, Inc.</footer>
