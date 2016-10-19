@@ -18,7 +18,7 @@ const ordersInitialState = {
 
 function orders(state=ordersInitialState, action) {
     switch (action.type) {
-    case 'ORDERS_ADD':
+    case 'ORDERS_ADD': {
         const sectionId = action.payload.sectionId;
         const itemId = action.payload.itemId;
         // What do if this doesn't exist!
@@ -52,13 +52,85 @@ function orders(state=ordersInitialState, action) {
             orderSection.items[itemId] = orderItem;
         }
 
-        console.log(newState);
-
         return newState;
-    case 'ORDERS_SUBTRACT':
-        return state;
-    case 'ORDERS_REMOVE':
-        return state;
+    }
+    case 'ORDERS_SUBTRACT': {
+        const sectionId = action.payload.sectionId;
+        const itemId = action.payload.itemId;
+        // What do if this doesn't exist!
+        const section = RESTAURANT_DATA.menu.sections[sectionId];
+        const item = section.items[itemId];
+
+        const newState = Object.assign({}, state);
+
+	if (newState.totalCount == 0) {
+	    throw new Error('Not enough items to remove');
+	}
+
+	if (!(sectionId in newState.sections)) {
+	    throw new Error('Section does not exist');
+	}
+
+	const orderSection = newState.sections[sectionId];
+
+	if (!(itemId in orderSection.items)) {
+	    throw new Error('Item does not exist');
+	}
+
+	const orderItem = orderSection.items[itemId];
+
+	orderItem.count -= 1;
+	orderItem.amount -= item.price;
+
+	if (orderItem.count == 0) {
+	    delete orderSection.items[itemId];
+	}
+
+	if (Object.keys(orderSection.items).length == 0) {
+	    delete newState.sections[sectionId];
+	}
+
+	newState.totalCount -= 1;
+	newState.totalAmount -= item.price;
+	
+        return newState;
+    }
+    case 'ORDERS_REMOVE': {
+        const sectionId = action.payload.sectionId;
+        const itemId = action.payload.itemId;
+        // What do if this doesn't exist!
+        const section = RESTAURANT_DATA.menu.sections[sectionId];
+        const item = section.items[itemId];
+
+        const newState = Object.assign({}, state);
+
+	if (newState.totalCount == 0) {
+	    throw new Error('Not enough items to remove');
+	}
+
+	if (!(sectionId in newState.sections)) {
+	    throw new Error('Section does not exist');
+	}
+
+	const orderSection = newState.sections[sectionId];
+
+	if (!(itemId in orderSection.items)) {
+	    throw new Error('Item does not exist');
+	}
+
+	const orderItem = orderSection.items[itemId];
+
+	delete orderSection.items[itemId];
+
+	if (Object.keys(orderSection.items).length == 0) {
+	    delete newState.sections[sectionId];
+	}
+
+	newState.totalCount -= orderItem.count;
+	newState.totalAmount -= orderItem.amount;
+
+	return newState;
+    }
     default:
         return state;
     }

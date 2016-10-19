@@ -1,15 +1,33 @@
 import 'bootstrap/less/bootstrap.less';
+import 'font-awesome/less/font-awesome.less';
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { ordersAdd, ordersSubtract, ordersRemove } from './store';
+
 
 class ShoppingCartItem extends React.Component {
+    handleAddToOrders() {
+        this.props.onClickAddToOrders(this.props.section.id, this.props.item.id);
+    }
+
+    handleSubtractFromOrders() {
+         this.props.onClickSubtractFromOrders(this.props.section.id, this.props.item.id);
+    }
+
+    handleRemoveFromOrders() {
+        this.props.onClickRemoveFromOrders(this.props.section.id, this.props.item.id);
+    }
+    
     render() {
         return (
             <div className="row">
                 <span>{this.props.item.name}</span>
                 <span>{this.props.orderItem.count}</span>
                 <span>{this.props.orderItem.amount}</span>
+		<button type="button" className="btn btn-default" onClick={this.handleAddToOrders.bind(this)}><i className="fa fa-plus"></i></button>
+		<button type="button" className="btn btn-default" onClick={this.handleSubtractFromOrders.bind(this)}><i className="fa fa-minus"></i></button>
+		<button type="button" className="btn btn-default" onClick={this.handleRemoveFromOrders.bind(this)}><i className="fa fa-times"></i></button>
             </div>
         );
     }
@@ -21,8 +39,12 @@ class ShoppingCartSection extends React.Component {
         const orderItems = Object.keys(this.props.orderSection.items).map(iId =>
             <ShoppingCartItem
                 key={iId}
+		section={this.props.section}
                 item={this.props.section.items[iId]}
-                orderItem={this.props.orderSection.items[iId]} />);
+                orderItem={this.props.orderSection.items[iId]}
+		onClickAddToOrders={this.props.onClickAddToOrders}
+		onClickSubtractFromOrders={this.props.onClickSubtractFromOrders}
+		onClickRemoveFromOrders={this.props.onClickRemoveFromOrders}/>);
 
         return (
             <div>
@@ -40,7 +62,10 @@ class ShoppingCart extends React.Component {
             <ShoppingCartSection
                 key={sId}
                 section={this.props.restaurant.menu.sections[sId]}
-                orderSection={this.props.orders.sections[sId]} />);
+                orderSection={this.props.orders.sections[sId]}
+		onClickAddToOrders={this.props.ordersAdd}
+		onClickSubtractFromOrders={this.props.ordersSubtract}
+		onClickRemoveFromOrders={this.props.ordersRemove}/>);
 
         return (
 	    <div className="container">
@@ -69,7 +94,7 @@ function mapStateToProps(store) {
 function mapDispatchToProps(dispatch) {
     return {
 	ordersAdd: (sectionId, itemId) => dispatch(ordersAdd(sectionId, itemId)),
-	ordersSubtract: (sectionId, item) => dispatch(ordersSubtract(sectionId, itemId)),
+	ordersSubtract: (sectionId, itemId) => dispatch(ordersSubtract(sectionId, itemId)),
 	ordersRemove: (sectionId, itemId) => dispatch(ordersRemove(sectionId, itemId))
     }
 }
