@@ -57,6 +57,9 @@ class ShoppingCartSection extends React.Component {
 
 
 class ShoppingCart extends React.Component {
+    handleCheckout() {
+    }
+    
     render() {
         const orderSections = Object.keys(this.props.orders.sections).map(sId =>
             <ShoppingCartSection
@@ -66,6 +69,9 @@ class ShoppingCart extends React.Component {
 		onClickAddToOrders={this.props.ordersAdd}
 		onClickSubtractFromOrders={this.props.ordersSubtract}
 		onClickRemoveFromOrders={this.props.ordersRemove}/>);
+
+	const checkoutDisabled = this.props.orders.totalCount == 0;
+
 
         return (
 	    <div className="container">
@@ -78,6 +84,8 @@ class ShoppingCart extends React.Component {
                     <span>{this.props.orders.totalCount}</span>
                     <span>{this.props.orders.totalAmount}</span>
                 </div>
+
+                <button type="button" className="btn btn-primary" disabled={checkoutDisabled} onClick={this.handleCheckout.bind(this)}>Checkout</button>
 	    </div>
 	)
     };
