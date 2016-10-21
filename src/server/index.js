@@ -1,10 +1,22 @@
-var express = require('express');
+const express = require('express');
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
 
-var config = require('./config');
+const config = require('./config');
+const webpackConfig = require('../../webpack.config');
 
-var app = express();
+const app = express();
 
-app.use('/dist', express.static(config.DIST_PATH));
+if (config.ENV == 'LOCAL') {
+    app.use(webpackDevMiddleware(webpack(webpackConfig), {
+	publicPath: webpackConfig.output.publicPath,
+	serverSideRender: false
+    }));
+
+    app.use('/dist', express.static('./src/static'));
+} else {
+    app.use('/dist', express.static(config.DIST_PATH));
+}
 
 app.listen(config.PORT, function () {
     console.log('Listening on port ' + config.PORT.toString());
