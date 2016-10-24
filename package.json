@@ -4,7 +4,8 @@
   "description": "The restaurant website.",
   "author": "Horia Coman <horia141@gmail.com>",
   "scripts": {
-    "build": "gulp build"
+    "build": "gulp build",
+    "serve": "node src/server/index.js"
   },
   "respository": {
     "type": "git",
@@ -19,6 +20,7 @@
   "dependencies": {
     "babel-runtime": "^6.11.6",
     "bootstrap": "^3.3.7",
+    "express": "^4.14.0",
     "font-awesome": "^4.6.3",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",

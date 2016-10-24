@@ -13,9 +13,9 @@ if (config.ENV == 'LOCAL') {
 	serverSideRender: false
     }));
 
-    app.use('/dist', express.static('./src/static'));
+    app.use('/', express.static('./src/static'));
 } else {
-    app.use('/dist', express.static(config.DIST_PATH));
+    app.use('/', express.static('./dist'));
 }
 
 app.listen(config.PORT, function () {

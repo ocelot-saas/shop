@@ -36,7 +36,7 @@ class MainView extends React.Component {
 ReactDOM.render(
     <Provider store={store}>
         <Router history={browserHistory}>
-            <Route path="/dist/" component={MainView} restaurant={RESTAURANT_DATA} />
+            <Route path="/" component={MainView} restaurant={RESTAURANT_DATA} />
         </Router>
     </Provider>,
     document.getElementById('app')

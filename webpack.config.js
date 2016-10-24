@@ -18,7 +18,7 @@ module.exports = {
     entry: './src/app.js',
     output: {
 	path: '/',
-	publicPath: 'http://localhost:10100/dist',
+	publicPath: '/',
 	filename: 'app.bundle.js'
     },
     module: {
