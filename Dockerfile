@@ -11,8 +11,6 @@ RUN apt-get update -y && \
             npm && \
     apt-get clean
 
-RUN npm install -g bower
-
 # Setup directory structure.
 
 RUN mkdir /ocelot
