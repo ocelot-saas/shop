@@ -18,6 +18,6 @@ if (config.ENV == 'LOCAL') {
     app.use('/', express.static('./dist'));
 }
 
-app.listen(config.PORT, function () {
+app.listen(config.PORT, config.ADDRESS, function () {
     console.log('Listening on port ' + config.PORT.toString());
 });
