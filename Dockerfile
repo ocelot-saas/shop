@@ -27,7 +27,6 @@ RUN groupadd ocelot && \
 COPY package.json /ocelot/pack/package.json
 RUN cd /ocelot/pack && npm install --progress=false
 
-
 # Copy source code.
 
 COPY . /ocelot/pack

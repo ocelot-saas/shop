@@ -17,13 +17,13 @@ if (config.ENV == 'LOCAL') {
     
     app.use(middleware);
     app.get('*', function (req, res) {
-	res.write(middleware.fileSystem.readFileSync(path.join(process.cwd(), 'dist/index.html')));
+	res.write(middleware.fileSystem.readFileSync(path.join(process.cwd(), 'dist', 'index.html')));
 	res.end();
     });    
 } else {
     app.use('/dist', express.static('./dist'));
     app.get('*', function (req, res) {
-        res.sendFile(path.join(process.cwd(), 'dist/index.html'));
+        res.sendFile(path.join(process.cwd(), 'dist', 'index.html'));
     });
 }
 
