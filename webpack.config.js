@@ -15,11 +15,15 @@ const webpackNonLocalPlugins = [
 
 
 module.exports = {
-    entry: './src/app.js',
+    entry: {
+        app: './src/app.js',
+        index: './src/static/index.html',
+        favicon: './src/static/favicon.ico'
+    },
     output: {
-	path: '/',
-	publicPath: '/',
-	filename: 'app.bundle.js'
+	path: path.resolve(__dirname, 'dist'),
+	publicPath: '/dist/',
+	filename: '[name].bundle.js'
     },
     module: {
 	loaders: [{
@@ -51,6 +55,14 @@ module.exports = {
                 path.resolve(__dirname, 'node_modules', 'font-awesome', 'fonts'),
             ],
             loader: 'file?name=fonts/[name].[ext]'
+        }, {
+            test: /\.html$/,
+            include: [path.resolve(__dirname, 'src')],
+            loader: 'file?name=[name].[ext]'
+        }, {
+            test: /favicon.ico$/,
+            include: [path.resolve(__dirname, 'src')],
+            loader: 'file?name=[name].[ext]'
         }]
     },
     plugins: [
