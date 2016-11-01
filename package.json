@@ -5,7 +5,9 @@
   "author": "Horia Coman <horia141@gmail.com>",
   "scripts": {
     "build": "webpack",
-    "serve": "node src/server/index.js"
+    "serve": "node src/server/index.js",
+    "test": "true",
+    "test-travis": "true"
   },
   "respository": {
     "type": "git",
@@ -17,11 +19,18 @@
     "url": "https://github.com/ocelot-saas/webshop/issues"
   },
   "homepage": "https://github.com/ocelot-saas/webshop#readme",
+  "files": [
+    "dist",
+    "src",
+    "Procfile",
+    "webpack.config.js"
+  ],
   "dependencies": {
     "babel-runtime": "^6.11.6",
     "bootstrap": "^3.3.7",
     "express": "^4.14.0",
     "font-awesome": "^4.6.3",
+    "mustache": "^2.2.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",

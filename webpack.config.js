@@ -66,10 +66,7 @@ module.exports = {
         }]
     },
     plugins: [
-        new webpack.DefinePlugin({
-            'ENV': JSON.stringify(config.ENV),
-            'process.env.NODE_ENV': config.ENV === 'LOCAL' ? '"development"' : '"production"'
-        }),
+        new webpack.DefinePlugin({'process.env.NODE_ENV': config.ENV === 'LOCAL' ? '"development"' : '"production"'}),
 	new ExtractTextPlugin('app.bundle.css'),
     ].concat(config.ENV !== 'LOCAL' ? webpackNonLocalPlugins : []),
     resolve: {

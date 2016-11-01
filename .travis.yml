@@ -1,0 +1,40 @@
+language: node_js
+
+node_js:
+- "node"
+
+cache:
+  directories:
+  - node_modules
+
+env:
+  global:
+  - ENV=TEST
+  - ADDRESS=0.0.0.0
+  - PORT=10000
+  - AUTH0_KEY=null
+  - AUTH0_DOMAIN=null
+  - IDENTITY_SERVICE_DOMAIN=null
+  - INVENTORY_SERVICE_DOMAIN=null
+  - IDENTITY_SERVICE_PUBLIC_DOMAIN=null
+  - INVENTORY_SERVICE_PUBLIC_DOMAIN=null
+
+install:
+- npm install --progress=false
+- npm run build
+
+script:
+- npm run test-travis
+
+# after_success: 
+# - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+
+deploy:
+- provider: script
+  skip_cleanup: true
+  script: bin/togemfury.sh
+- provider: heroku
+  skip_cleanup: true
+  app: ocelot-saas-webshop
+  api_key:
+    secure: "lIu1bchPKEJau0Ct3nu8Bkn5hwNFaIzwzlqj5y33xDQ4IPo7tMIry1zbtq5dLHgkOTy36lfQm32BheFqVfTXbqFL13xfMl1eDvci2uLos9wV/eXNecgI8mi+sMf8sf8YLcgEGUpetICU+mtra383dRHtjcolka38elxM7wi+9A1q3W+Yuc10mv2Q3QCLl1IGIb5C4ox25/eU02CVSrx0IHcYD4wbjvSWGS1cd1KmDirWlR4yqmtJGa+XYRMfvxRK+ob5LWjk0rlzJSskruB9zSaErgsYhOPdf2iUyKaF9ZSRK7kXYQH78zzrg901fYJjZ1hUz2g0Ur8hw9aMLQPq6HZbNyEeCdtXrx5UwLpQQjHBkFM5bmqrO3I00cW3Z3/mnRbDUMB+Oz1KFrvsN0PU8DlVahdpx+V1tdKGgRpHyFy7t0sB5Zrq0DQgN7H9r4kAJd4MZlxaVcP24+EOBRR9mKCFSkxg5CmgfN75ysG+6jZqko6Bx3XxS4FBmiA8k+MtPxf3z2MkJHpa0elG/uIN+WmTbA+GuGYBlzunDWt64GD/9f2A3iPkAdNGes+ZtfpTAYMP/2YNB+w3iAYawm0rs+P9txDDvKreI5KXwK3qE/OJXceZnn7ywu65ydXO7khtsfyJ7xfS+KT6fGh1rGGQS/1jLYG9eWN8l5xw76WQYzU="
