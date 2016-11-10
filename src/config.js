@@ -109,6 +109,7 @@ export const RESTAURANT_DATA = {
 export const ENV = '{{{ ENV }}}';
 export const ADDRESS = '{{{ ADDRESS }}}';
 export const PORT = '{{{ PORT }}}';
+export const MASTER_DOMAIN = '{{{ MASTER_DOMAIN }}}';
 export const AUTH0_KEY = '{{{ AUTH0_KEY }}}';
 export const AUTH0_DOMAIN = '{{{ AUTH0_DOMAIN }}}';
 export const IDENTITY_SERVICE_DOMAIN = '{{{ IDENTITY_SERVICE_DOMAIN }}}';
