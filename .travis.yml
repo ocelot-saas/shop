@@ -19,9 +19,11 @@ env:
   - INVENTORY_SERVICE_DOMAIN=null
   - IDENTITY_SERVICE_PUBLIC_DOMAIN=null
   - INVENTORY_SERVICE_PUBLIC_DOMAIN=null
+  # GEMFURY_NPM_KEY
+  - secure: "TuLyzajvLZsM/OHIQUvu1vhQalyiZGxu9uRxeiLYUMeJ5hzKv4PupPW97hpAiCqzs9F9nJsRTTJBhdLZuXdIJaYg5W+Dkqh5e3E1X4356vTq5cdepiycanLtrpDbFDkBXEj1iu22pn31u24ULOX7xKGlpM5xdNg2bX36srJEIF0qLTksuPl/wIM3CnS+eaGdPhCz/0fw1PwgIbWneypV9hiz1Il6envuQ2eY5UZ6PiIx0ZsvPlq4pmGMhND6NuH4YLA08XpUnrCpHnOrMIdVUDenUr192CfCTCaNQEUAY5CqTCq9e3//84wtvqj8EhLpYuR/YRKLY4qgC8G37yCec0hP+WJBh35LGUeIfIjWnrpkak3X7P1n14IAmjYE5EuKdNsKuX9XFbWflDQl0XExBjosV3IqDMcIToYVzZ+H5ERzAguBhzcZtXL33bvDUnGdbe0zb17Dt/bBpXjjIXAdWH4wGdYt+BjZ3d5TDt7a8HEckP9AvMD1CFlcke2+nIKXdeKh5GpDDOc+3MXkZFhD5pUN+3EANYYVVKISshrU1Q3DDFLKxtvLNzEYTVAD8CLAnTEznfyUgaRnNqjgvt4EofMaBNvjtFNeQRMFsvW5FEjcQ7D8CaSEPR94DoAV9xLupim0O5mzQfOvFMSYj7FUJ7lvLx2NKvNJC1MYvwIWD38="
 
 install:
-- npm install --progress=false
+- npm install --registry=https://npm-proxy.fury.io/vsRAKKMwEs5p1RhfMGiF/ocelot-saas/ --progress=false
 - npm run build
 
 script:
