@@ -21,7 +21,8 @@ if (config.ENV == 'LOCAL') {
     });
     
     app.get('/dist/app.bundle.js', function (req, res) {
-        inventoryService.getWebshopInfo('horias.ocelot.com')
+        const host = req.headers['host'];        
+        inventoryService.getWebshopInfo(host)
             .then(function(webshopInfo) {
                 const newConfig = Object.assign({}, config);
                 newConfig["WEBSHOP_INFO"] = JSON.stringify(webshopInfo);
@@ -31,7 +32,7 @@ if (config.ENV == 'LOCAL') {
                 res.end();
             })
             .catch(function(error) {
-                res.write('<!DOCTYPE html>\n<html>An error occurred</html>');
+                res.write(`<!DOCTYPE html>\n<html>An error occurred ${error}</html>`);
                 res.end();
             });
     });
@@ -44,7 +45,8 @@ if (config.ENV == 'LOCAL') {
     const templateAppJsFile = fs.readFileSync(path.join(process.cwd(), 'dist', 'app.bundle.js'), 'utf8');
     const indexFile = fs.readFileSync(path.join(process.cwd(), 'dist', 'index.html'), 'utf8');
     app.get('/dist/app.bundle.js', function (req, res) {
-        inventoryService.getWebshopInfo('horias.ocelot.com')
+        const host = req.headers['host'];
+        inventoryService.getWebshopInfo(host)
             .then(function(webshopInfo) {
                 const newConfig = Object.assign({}, config);
                 newConfig["WEBSHOP_INFO"] = JSON.stringify(webshopInfo);                
@@ -53,9 +55,8 @@ if (config.ENV == 'LOCAL') {
                 res.end();
             })
             .catch(function(error) {
-                res.write('<!DOCTYPE html>\n<html>An error occurred</html>');
+                res.write(`<!DOCTYPE html>\n<html>An error occurred ${error}</html>`);
                 res.end();
-                throw error;
             });
     });
     app.use('/dist', express.static('./dist'));
