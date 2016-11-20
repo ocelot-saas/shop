@@ -50,11 +50,12 @@ if (config.ENV == 'LOCAL') {
                 newConfig["WEBSHOP_INFO"] = JSON.stringify(webshopInfo);                
                 const appJsFile = Mustache.render(templateAppJsFile, newConfig);
                 res.write(appJsFile);
-                res.end();                
+                res.end();
             })
             .catch(function(error) {
                 res.write('<!DOCTYPE html>\n<html>An error occurred</html>');
                 res.end();
+                throw error;
             });
     });
     app.use('/dist', express.static('./dist'));
