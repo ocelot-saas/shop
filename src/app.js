@@ -19,8 +19,8 @@ class MainView extends React.Component {
 
         return (
             <div className="container">
-                <h1>{this.props.route.restaurant.name}</h1>
-                <p>{this.props.route.restaurant.description}</p>
+                <h1>{this.props.route.restaurant.general.name}</h1>
+                <p>{this.props.route.restaurant.general.description}</p>
 
                 {menuSections}
 

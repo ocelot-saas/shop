@@ -1,10 +1,14 @@
-export const RESTAURANT_DATA = {
-    'name': 'Horia\'s place',
-    'description': 'This is the place of Horia',
-    'keywords': ['a', 'b', 'c'],
-    'address': '123 Road 1, Bucharest',
-    'openingHours': {},
-    'imageSet': {},
+export const RESTAURANT_DATA = JSON.parse('{{{ WEBSHOP_INFO }}}');
+
+export const RESTAURANT_DATA_XS = {
+    'general': {
+        'name': 'Horia\'s place',
+        'description': 'This is the place of Horia',
+        'keywords': ['a', 'b', 'c'],
+        'address': '123 Road 1, Bucharest',
+        'openingHours': {},
+        'imageSet': {},
+    },
     'menu': {
         'sections': {
 	    1: {

@@ -1,6 +1,6 @@
 {
   "name": "webshop",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "The restaurant website.",
   "author": "Horia Coman <horia141@gmail.com>",
   "scripts": {
@@ -30,7 +30,7 @@
     "bootstrap": "^3.3.7",
     "express": "^4.14.0",
     "font-awesome": "^4.6.3",
-    "inventory-sdk-js": "^0.0.1",
+    "inventory-sdk-js": "^0.4.2",
     "mustache": "^2.2.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
