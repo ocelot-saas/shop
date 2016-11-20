@@ -42,13 +42,13 @@ if (config.ENV == 'LOCAL') {
     });
 } else {
     const templateAppJsFile = fs.readFileSync(path.join(process.cwd(), 'dist', 'app.bundle.js'), 'utf8');
+    const indexFile = fs.readFileSync(path.join(process.cwd(), 'dist', 'index.html'), 'utf8');
     app.get('/dist/app.bundle.js', function (req, res) {
         inventoryService.getWebshopInfo('horias.ocelot.com')
             .then(function(webshopInfo) {
                 const newConfig = Object.assign({}, config);
                 newConfig["WEBSHOP_INFO"] = JSON.stringify(webshopInfo);                
                 const appJsFile = Mustache.render(templateAppJsFile, newConfig);
-                const indexFile = fs.readFileSync(path.join(process.cwd(), 'dist', 'index.html'), 'utf8');
                 res.write(appJsFile);
                 res.end();                
             })
